@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+</head>
+	<body>
+		<div id="tgt">
+			<form onSubmit="taskController.create(event)">
+				<label for="text">Task Name</label>
+				<input id="text" name="text" type="text">
+				<label for="dueDate">Due Date</label>
+				<input id="dueDate" name="dueDate" type="date">
+				<button type="submit">Create Task</button>
+			</form>
+			<table>
+				<tbody>
+					<tr>
+						<th></th>
+					</tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+	<script src="js/models/Task.js"></script>
+	<script src="js/controllers/TaskController.js"></script>
+	<script src="js/helpers/DateHelper.js"></script>
+	<script src="js/models/TaskList.js"></script>
+	<script>
+		let taskController = new TaskController();
+	</script>
+</html>
