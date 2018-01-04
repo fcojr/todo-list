@@ -1,26 +1,30 @@
 <!doctype html>
 <html>
 <head>
+	<title>A simple mvc todo list</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 	<body>
-		<div id="tgt">
-			<form onSubmit="taskController.create(event)">
-				<label for="text">Task Name</label>
-				<input id="text" name="text" type="text">
-				<label for="dueDate">Due Date</label>
-				<input id="dueDate" name="dueDate" type="date">
-				<button type="submit">Create Task</button>
-			</form>
-			<table>
-				<tbody>
-					<tr>
-						<th></th>
-					</tr>
-					<tr><td></td></tr>
-					<tr><td></td></tr>
-				</tbody>
-			</table>
-		</div>
+		<form onSubmit="taskController.create(event)">
+			<label for="text">Task Name</label>
+			<input id="text" name="text" type="text">
+			<label for="dueDate">Due Date</label>
+			<input id="dueDate" name="dueDate" type="date">
+			<button type="submit">Create Task</button>
+		</form>
+		<table>
+			<tr>
+				<th>Task</th>
+				<th>Due Date</th>
+				<th>Creation Date</th>
+			</tr>
+			<tr>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+			</tr>
+		</table>
 	</body>
 	<script src="js/models/Task.js"></script>
 	<script src="js/controllers/TaskController.js"></script>
