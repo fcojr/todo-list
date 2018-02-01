@@ -27,4 +27,4 @@ class TaskController{
 		console.log(this.taskList)
 		this.taskView.update(this.taskList)
 	}
-}
+} 
