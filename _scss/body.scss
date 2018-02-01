@@ -1,0 +1,15 @@
+.table{
+    th, td{
+        width: 25%;
+        &:first-child{
+            width: 50%;
+        }
+    }
+}
+input, label{
+    margin-right: 25px;
+    padding: 0!important;
+}
+form{
+    margin: 50px 0;
+}

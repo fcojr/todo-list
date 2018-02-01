@@ -1,0 +1,14 @@
+.navbar-dark {
+  background: #212529 !important; }
+
+.table th, .table td {
+  width: 25%; }
+  .table th:first-child, .table td:first-child {
+    width: 50%; }
+
+input, label {
+  margin-right: 25px;
+  padding: 0 !important; }
+
+form {
+  margin: 50px 0; }
