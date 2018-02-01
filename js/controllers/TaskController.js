@@ -21,4 +21,10 @@ class TaskController{
 		dateInput.value = ""
 		textInput.focus()
 	}
+	removeItem(taskId){
+		console.log(taskId)
+		this.taskList.tasks.splice((taskId-1), 1)
+		console.log(this.taskList)
+		this.taskView.update(this.taskList)
+	}
 }
