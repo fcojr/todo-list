@@ -1,6 +1,10 @@
 .navbar-dark {
   background: #212529 !important; }
 
+#app {
+  border-radius: 5px;
+  overflow: hidden; }
+
 .table th, .table td {
   width: 25%; }
   .table th:first-child, .table td:first-child {
@@ -8,7 +12,14 @@
 
 input, label {
   margin-right: 25px;
-  padding: 0 !important; }
+  padding: 2px !important; }
 
 form {
-  margin: 50px 0; }
+  margin: 50px 0;
+  justify-content: center; }
+  form .mb-2 {
+    margin-bottom: 0 !important; }
+
+#explanation {
+  text-align: center;
+  margin: 25px 0; }

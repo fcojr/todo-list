@@ -14,5 +14,11 @@ class TaskController{
 		this.taskList.addTask(task)
 		//console.log(this.taskList.getTasks())
 		this.taskView.update(this.taskList)
+		this.reset(this.textInput, this.dateInput)
+	}
+	reset(textInput, dateInput){
+		textInput.value = ""
+		dateInput.value = ""
+		textInput.focus()
 	}
 }
