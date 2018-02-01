@@ -13,8 +13,8 @@ class TaskView {
                     </tr>
                     <tr>
                         <td>Learn Vanilla JS</td>
-                        <td>10/02/2019</td>
-                        <td>01/02/2018</td
+                        <td>10/2/2019</td>
+                        <td>1/2/2018</td
                     </tr>
                 </thead>
                 ${taskList.getTasks().map(taskList =>{
