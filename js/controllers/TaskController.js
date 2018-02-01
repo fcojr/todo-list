@@ -23,8 +23,14 @@ class TaskController{
 	}
 	removeItem(taskId){
 		console.log(taskId)
-		this.taskList.tasks.splice((taskId-1), 1)
 		console.log(this.taskList)
+		for(var i=0; i<this.taskList.tasks.length; i++){
+			if(this.taskList.tasks[i].id == taskId){
+				this.taskList.tasks.splice(i, 1)
+			}
+		}
 		this.taskView.update(this.taskList)
+
+
 	}
 } 
