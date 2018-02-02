@@ -3,8 +3,9 @@ class TaskController{
 		this.textInput = document.querySelector("#text")
 		this.dateInput = document.querySelector("#dueDate")
 		this.taskList = new TaskList()
-		this.taskView = new TaskView(document.querySelector("#app"))
-		this.taskView.update(this.taskList)
+		this.doneTasks = new TaskList()
+		this.taskView = new TaskView(document.querySelector("#app"), document.querySelector("#app2"))
+		this.taskView.update(this.taskList, this.doneTasks)
 	}
 	create(){
 		if(this.verifica(this.textInput, this.dateInput)){
@@ -13,7 +14,7 @@ class TaskController{
 			let formatedData = DateHelper.dateToText(task.dueDate)
 			this.taskList.addTask(task)
 			//console.log(this.taskList.getTasks())
-			this.taskView.update(this.taskList)
+			this.taskView.update(this.taskList, this.doneTasks)
 			this.reset(this.textInput, this.dateInput)
 		}
 	}
@@ -40,6 +41,17 @@ class TaskController{
 				this.taskList.tasks.splice(i, 1)
 			}
 		}
-		this.taskView.update(this.taskList)
+		this.taskView.update(this.taskList, this.doneTasks)
+	}
+	markAsDone(taskId){
+		for(var i=0; i<this.taskList.tasks.length; i++){
+			if(this.taskList.tasks[i].id == taskId){
+				this.taskList.tasks[i].isDone = true
+				this.doneTasks.tasks.push(this.taskList.tasks[i])
+			}
+		}
+		console.log(this.doneTasks)
+		this.removeItem(i)
+		this.taskView.update(this.taskList, this.doneTasks)
 	}
 } 

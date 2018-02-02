@@ -3,7 +3,9 @@
 
 #app {
   border-radius: 5px;
-  overflow: hidden; }
+  overflow: hidden;
+  min-height: 122px;
+  margin-bottom: 25px; }
 
 .table th, .table td {
   width: 20%; }
