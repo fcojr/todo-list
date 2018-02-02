@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="style.css">
 	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 </head>
-	<body>
+	<body onload=taskController.create()>
 		<header>
 			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 				<div class="container">
@@ -38,16 +38,16 @@
 				<h1>Franc's Todo List</h1>
 				<p>Add your tasks below to start!</p>
 			</section>
-			<form class="form-inline" onSubmit="taskController.create(event)">
+			<form action="javascript:0" class="form-inline">
 				<div class="form-group mb-2">
 					<label for="text">Task Name</label>
-					<input required class="form-control" id="text" name="text" type="text">
+					<input value="Learn Vanilla JS" required class="form-control" id="text" name="text" type="text">
 				</div>
 				<div class="form-group mb-2">
 					<label for="dueDate">Due Date</label>
-					<input required class="form-control" value="" placeholder="dd-mm-yyyy" id="dueDate" name="dueDate" type="date">
+					<input value="2018-06-18" required class="form-control" value="" placeholder="dd-mm-yyyy" id="dueDate" name="dueDate" type="date">
 				</div>
-				<button class="btn btn-dark btn-sm" type="submit">Create Task</button>
+				<button class="btn btn-dark btn-sm" type="button" onclick="taskController.create()">Create Task</button>
 			</form>
 			<div id="app"></div>
 		</div>
@@ -58,6 +58,6 @@
 	<script src="js/models/TaskList.js"></script>
 	<script src="js/views/TaskView.js"></script>
 	<script>
-		let taskController = new TaskController();
+		let taskController = new TaskController()
 	</script>
 </html>
