@@ -1,5 +1,5 @@
 class TaskController{
-	constructor(){
+	constructor(text){
 		this.textInput = document.querySelector("#text")
 		this.dateInput = document.querySelector("#dueDate")
 		this.taskList = new TaskList()
@@ -25,7 +25,7 @@ class TaskController{
 		}
 		if(date.value == ""){
 			date.classList.add("invalid")
-			date.addEventListener("focus", () => text.classList.remove("invalid"))
+			date.addEventListener("focus", () => date.classList.remove("invalid"))
 			return false
 		}
 		return true
