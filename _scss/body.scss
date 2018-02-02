@@ -1,4 +1,4 @@
-#app{
+#app, #app2{
     border-radius: 5px;
     overflow: hidden;
     min-height: 122px;
@@ -12,6 +12,9 @@
         }
         &:last-child{
             width: 15%;
+        }
+        &.bg-success{
+            border-color: #19a539;
         }
     }
 }

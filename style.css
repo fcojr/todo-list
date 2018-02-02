@@ -1,7 +1,7 @@
 .navbar-dark {
   background: #212529 !important; }
 
-#app {
+#app, #app2 {
   border-radius: 5px;
   overflow: hidden;
   min-height: 122px;
@@ -13,6 +13,8 @@
     width: 45%; }
   .table th:last-child, .table td:last-child {
     width: 15%; }
+  .table th.bg-success, .table td.bg-success {
+    border-color: #19a539; }
 
 input, label {
   margin-right: 25px;

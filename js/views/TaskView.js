@@ -32,10 +32,10 @@ class TaskView {
             <table class="table table-striped">
                 <thead class="thead-dark">
                     <tr>
-                        <th>Task</th>
-                        <th>Due Date</th>
-                        <th>Creation Time</th>
-                        <th>Change Status</th>
+                        <th class="bg-success">Task</th>
+                        <th class="bg-success">Due Date</th>
+                        <th class="bg-success">Creation Time</th>
+                        <th class="bg-success">Change Status</th>
                     </tr>
                 </thead>
                 ${taskList.getTasks().map(taskList =>
