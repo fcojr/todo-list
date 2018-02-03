@@ -15,6 +15,8 @@
     width: 15%; }
   .table th.bg-success, .table td.bg-success {
     border-color: #19a539; }
+  .table th:not(:first-child), .table td:not(:first-child) {
+    text-align: center; }
 
 input, label {
   margin-right: 25px;

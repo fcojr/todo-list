@@ -16,6 +16,7 @@ class TaskController{
 			//console.log(this.taskList.getTasks())
 			this.taskView.update(this.taskList, this.doneTasks)
 			this.reset(this.textInput, this.dateInput)
+			//console.log(this.taskList)
 		}
 	}
 	verifica(text, date){
@@ -44,14 +45,21 @@ class TaskController{
 		this.taskView.update(this.taskList, this.doneTasks)
 	}
 	markAsDone(taskId){
-		for(var i=0; i<this.taskList.tasks.length; i++){
-			if(this.taskList.tasks[i].id == taskId){
-				this.taskList.tasks[i].isDone = true
-				this.doneTasks.tasks.push(this.taskList.tasks[i])
+		this.swapItems(taskId, this.taskList, this.doneTasks)
+		this.taskView.update(this.taskList, this.doneTasks)
+	}
+	backTodo(taskId){
+		this.swapItems(taskId, this.doneTasks, this.taskList)
+		this.taskView.update(this.taskList, this.doneTasks)
+	}
+	swapItems(taskId, src, dest){
+		for(var i=0; i<src.tasks.length; i++){
+			if(src.tasks[i].id == taskId){
+				src.tasks[i].isDone = !src.tasks[i].isDone
+				dest.tasks.push(src.tasks[i])
+				src.tasks.splice(i, 1)
 			}
 		}
-		console.log(this.doneTasks)
-		this.removeItem(i)
 		this.taskView.update(this.taskList, this.doneTasks)
 	}
 } 

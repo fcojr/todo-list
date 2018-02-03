@@ -16,6 +16,9 @@
         &.bg-success{
             border-color: #19a539;
         }
+        &:not(:first-child){
+            text-align: center;
+        }
     }
 }
 input, label{

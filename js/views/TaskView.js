@@ -27,7 +27,7 @@ class TaskView {
                 ).join('')}
             </table> `
     }
-    doneTable(taskList){
+    doneTable(doneTasks){
         return `
             <table class="table table-striped">
                 <thead class="thead-dark">
@@ -38,13 +38,13 @@ class TaskView {
                         <th class="bg-success">Change Status</th>
                     </tr>
                 </thead>
-                ${taskList.getTasks().map(taskList =>
+                ${doneTasks.getTasks().map(doneTasks =>
                      `<tr>
-                        <td>${taskList.text}</td>
-                        <td>${DateHelper.dateToText(taskList.dueDate)}</td>
-                        <td>${DateHelper.dateToText(taskList.creationTime)}</td>
+                        <td>${doneTasks.text}</td>
+                        <td>${DateHelper.dateToText(doneTasks.dueDate)}</td>
+                        <td>${DateHelper.dateToText(doneTasks.creationTime)}</td>
                         <td>
-                            <button class="btn btn-sm btn-dark"><i class="fas fa-undo"></i></i></button>
+                            <button onclick="taskController.backTodo(${doneTasks.id})" class="btn btn-sm btn-dark"><i class="fas fa-undo"></i></i></button>
                         </td>
                     </tr>`
                 ).join('')}
