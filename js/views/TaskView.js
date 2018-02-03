@@ -15,13 +15,14 @@ class TaskView {
                     </tr>
                 </thead>
                 ${taskList.getTasks().map(taskList =>
-                     `<tr>
+                     `<tr class="id-${taskList.id}">
                         <td>${taskList.text}</td>
                         <td>${DateHelper.dateToText(taskList.dueDate)}</td>
                         <td>${DateHelper.dateToText(taskList.creationTime)}</td>
                         <td>
                             <button onclick=taskController.markAsDone(${taskList.id}) class="btn btn-sm btn-dark" title="Mark task as done"><i class="fas fa-check"></i></button>
-                            <button onclick="taskController.removeItem(${taskList.id})" class="btn btn-sm btn-dark" title="Remove task"><i class="fas fa-times"></i></button>
+                            <button onclick=taskController.removeItem(${taskList.id}) class="btn btn-sm btn-dark" title="Remove task"><i class="fas fa-times"></i></button>
+                            <button onclick="" class="btn btn-sm btn-dark" title="Edit task"><i class="fas fa-pencil-alt"></i></button>
                         </td>
                     </tr>`
                 ).join('')}
@@ -66,19 +67,7 @@ class TaskView {
         `
     }
     noDoneTasks(){
-        return `
-        <table class="table table-striped">
-                <thead class="thead-dark">
-                    <tr>
-                        <th class="bg-success">Task</th>
-                        <th class="bg-success">Due Date</th>
-                        <th class="bg-success">Creation Time</th>
-                        <th class="bg-success">Change Status</th>
-                    </tr>
-                </thead>
-            </table>
-            <p>No done tasks</p>
-        `
+        return `<p>No done tasks</p>`
     }
     update(taskList, doneTasks){
         if(typeof taskList !== 'undefined' && taskList.tasks.length > 0)
@@ -89,5 +78,17 @@ class TaskView {
             this.app2.innerHTML = this.doneTable(doneTasks)
         else
             this.app2.innerHTML = this.noDoneTasks()
+    }
+    fadeOut(taskId){
+		document.querySelector(".id-"+taskId).classList.add("fadeOut")
+		setTimeout(()=> {
+			this.update(this.taskList, this.doneTasks)
+		}, 500)
+    }
+    fadeIn(taskId){
+        document.querySelector(".id-"+taskId).classList.add("fadeIn")
+        setTimeout(()=> {
+            this.update(this.taskList, this.doneTasks)
+        }, 500)
     }
 }

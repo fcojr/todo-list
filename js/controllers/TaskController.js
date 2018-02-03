@@ -42,11 +42,12 @@ class TaskController{
 				this.taskList.tasks.splice(i, 1)
 			}
 		}
-		this.taskView.update(this.taskList, this.doneTasks)
+		this.taskView.fadeOut(taskId)
 	}
 	markAsDone(taskId){
 		this.swapItems(taskId, this.taskList, this.doneTasks)
 		this.taskView.update(this.taskList, this.doneTasks)
+		//this.taskView.fadeOut(taskId)
 	}
 	backTodo(taskId){
 		this.swapItems(taskId, this.doneTasks, this.taskList)
@@ -60,6 +61,8 @@ class TaskController{
 				src.tasks.splice(i, 1)
 			}
 		}
+		//this.taskView.fadeOut(taskId)
 		this.taskView.update(this.taskList, this.doneTasks)
 	}
-} 
+
+}

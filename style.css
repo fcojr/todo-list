@@ -31,6 +31,19 @@ form {
   form .mb-2 {
     margin-bottom: 0 !important; }
 
-#explanation {
+.title {
   text-align: center;
   margin: 25px 0; }
+
+.fadeOut {
+  opacity: 0;
+  transition: 1s;
+  background: #f00 !important; }
+
+.fadeIn {
+  animation: fadein .2s; }
+@keyframes fadein {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
