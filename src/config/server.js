@@ -7,3 +7,4 @@ server.use(bodyParser.json())
 server.listen(port, () =>{
     console.log(`servidor rodando na porta ${port}`)
 })
+module.exports = server
