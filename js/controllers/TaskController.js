@@ -5,7 +5,7 @@ class TaskController{
 		this.taskList = new TaskList()
 		this.doneTasks = new TaskList()
 		this.taskView = new TaskView(document.querySelector("#app"), document.querySelector("#app2"))
-		this.taskView.update(this.taskList, this.doneTasks)
+		this.taskView.update(this.taskList)
 	}
 	create(){
 		if(this.verifica(this.textInput, this.dateInput)){
@@ -13,10 +13,8 @@ class TaskController{
 			let task = new Task(this.textInput.value, data)
 			let formatedData = DateHelper.dateToText(task.dueDate)
 			this.taskList.addTask(task)
-			//console.log(this.taskList.getTasks())
-			this.taskView.update(this.taskList, this.doneTasks)
+			this.taskView.update(this.taskList)
 			this.reset(this.textInput, this.dateInput)
-			//console.log(this.taskList)
 		}
 	}
 	verifica(text, date){
@@ -37,32 +35,20 @@ class TaskController{
 		dateInput.value = ""
 	}
 	removeItem(taskId){
+		//console.log(this.taskList)
 		for(var i=0; i<this.taskList.tasks.length; i++){
 			if(this.taskList.tasks[i].id == taskId){
 				this.taskList.tasks.splice(i, 1)
 			}
 		}
-		this.taskView.fadeOut(taskId)
+		this.taskView.update(this.taskList)
 	}
-	markAsDone(taskId){
-		this.swapItems(taskId, this.taskList, this.doneTasks)
-		this.taskView.update(this.taskList, this.doneTasks)
-		//this.taskView.fadeOut(taskId)
-	}
-	backTodo(taskId){
-		this.swapItems(taskId, this.doneTasks, this.taskList)
-		this.taskView.update(this.taskList, this.doneTasks)
-	}
-	swapItems(taskId, src, dest){
-		for(var i=0; i<src.tasks.length; i++){
-			if(src.tasks[i].id == taskId){
-				src.tasks[i].isDone = !src.tasks[i].isDone
-				dest.tasks.push(src.tasks[i])
-				src.tasks.splice(i, 1)
+	changeStatus(taskId){
+		for(var i=0; i<this.taskList.tasks.length; i++){
+			if(this.taskList.tasks[i].id == taskId){
+				this.taskList.tasks[i].isDone = !this.taskList.tasks[i].isDone
 			}
 		}
-		//this.taskView.fadeOut(taskId)
-		this.taskView.update(this.taskList, this.doneTasks)
+		this.taskView.update(this.taskList)
 	}
-
 }

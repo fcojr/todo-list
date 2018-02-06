@@ -5,6 +5,7 @@ class Task {
 		this.id = Task.getId()
 		this.creationTime = new Date()
 		this.isDone = false
+		this.isDeleted = false
 	}
 	static getId(){ 
 		if (!this.latestId) this.latestId = 1
