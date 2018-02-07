@@ -14,7 +14,7 @@ class TaskView {
                         <th>Change Status</th>
                     </tr>
                 </thead>
-                ${taskList.getTasks().filter(taskList => !taskList.isDone).map(taskList =>
+                ${taskList.filter(taskList => !taskList.isDone).map(taskList =>
                      `<tr class="id-${taskList.id}">
                         <td>${taskList.text}</td>
                         <td>${DateHelper.dateToText(taskList.dueDate)}</td>
@@ -39,7 +39,7 @@ class TaskView {
                         <th class="bg-success">Change Status</th>
                     </tr>
                 </thead>
-                ${taskList.getTasks().filter(taskList => taskList.isDone).map(taskList =>
+                ${taskList.filter(taskList => taskList.isDone).map(taskList =>
                      `<tr>
                         <td>${taskList.text}</td>
                         <td>${DateHelper.dateToText(taskList.dueDate)}</td>
@@ -70,25 +70,28 @@ class TaskView {
         return `<p>No done tasks</p>`
     }
     update(taskList){
-        if(typeof taskList !== 'undefined' && taskList.tasks.length > 0){
-            for(var i=0; i<taskList.tasks.length; i++){
-                if(taskList.tasks[i].isDone == false){
-                    this.app.innerHTML = this.todoTable(taskList)
-                } else {
-                    this.app.innerHTML = this.noTasks()
-                }
-            }
-        } else this.app.innerHTML = this.noTasks()
-        if(typeof taskList !== 'undefined' && taskList.tasks.length > 0){
-            for(var i=0; i<taskList.tasks.length; i++){
-                if(taskList.tasks[i].isDone == true){
-                    this.app2.innerHTML = this.doneTable(taskList)
-                } else {
-                    this.app2.innerHTML = this.noDoneTasks()
-                }
-            }
-        } else this.app2.innerHTML = this.noDoneTasks()
-            
+        axios.get('http://localhost:3003/api/todos')
+            .then(res => {
+                //console.log(res.data)
+                if(typeof res.data !== 'undefined' && res.data.length > 0){
+                    for(var i=0; i<res.data.length; i++){
+                        if(res.data[i].isDone == false){
+                            this.app.innerHTML = this.todoTable(res.data)
+                        } else {
+                            this.app.innerHTML = this.noTasks()
+                        }
+                    }
+                } else this.app.innerHTML = this.noTasks()
+                if(typeof res.data !== 'undefined' && res.data.length > 0){
+                    for(var i=0; i<res.data.length; i++){
+                        if(res.data[i].isDone == true){
+                            this.app2.innerHTML = this.doneTable(res.data)
+                        } else {
+                            this.app2.innerHTML = this.noDoneTasks()
+                        }
+                    }
+                } else this.app2.innerHTML = this.noDoneTasks()
+            })
     }
     fadeOut(taskId){
 		document.querySelector(".id-"+taskId).classList.add("fadeOut")

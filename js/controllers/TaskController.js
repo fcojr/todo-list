@@ -10,11 +10,16 @@ class TaskController{
 	create(){
 		if(this.verifica(this.textInput, this.dateInput)){
 			let data = DateHelper.textToDate(this.dateInput.value)
+			var dataValue = this.dateInput.value
+			console.log(dataValue)
 			let task = new Task(this.textInput.value, data)
 			let formatedData = DateHelper.dateToText(task.dueDate)
 			this.taskList.addTask(task)
-			this.taskView.update(this.taskList)
 			this.reset(this.textInput, this.dateInput)
+			axios.post('http://localhost:3003/api/todos', { text : task.text, dueDate: dataValue, id: task.id })
+				 .then(resp => console.log('Enviado ao banco'))
+				 setTimeout(()=>{ this.taskView.update(this.taskList) }, 3000);
+			//this.taskView.update(this.taskList)
 		}
 	}
 	verifica(text, date){
