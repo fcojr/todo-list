@@ -4,7 +4,7 @@ class TaskController{
 		this.dateInput = document.querySelector("#dueDate")
 		this.taskList = new TaskList()
 		this.taskView = new TaskView(document.querySelector("#app"), document.querySelector("#app2"))
-
+		//console.log(this.taskList)
 		this.taskView.update(this.taskList)
 	}
 	create(){
@@ -49,18 +49,17 @@ class TaskController{
 		this.taskView.update(this.taskList)
 	}
 	changeStatus(taskId){
-		console.log(taskId)
-		console.log(this.taskList.tasks)
-		for(var i=0; i<this.taskList.tasks.length; i++){
-			console.log(...this.taskList.tasks[i].id)
-			if(this.taskList.tasks[i]._id === taskId){
-				console.log(this.taskList.tasks[i]._id)
-				this.taskList.tasks[i].isDone = !this.taskList.tasks[i].isDone
-
-				axios.put('http://localhost:3003/api/todos', { ...this.taskList.tasks[i] })
-					.then((resp => console.log("Alterado no banco")))
+		axios.get('http://localhost:3003/api/todos')
+		.then(res => {
+			let taskList = res.data;
+			for(var i=0; i<taskList.length; i++){
+				if(taskList[i]._id == taskId){
+					taskList[i].isDone = !taskList[i].isDone
+					axios.post('http://localhost:3003/api/todos', { ...taskList[i] })
+						.then((resp => console.log("Alterado no banco")))
+				}
 			}
-		}
+		})
 		// this.taskView.update(this.taskList)
 		//this.taskView.updateViewModel()
 	}

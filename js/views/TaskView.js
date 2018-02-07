@@ -76,7 +76,6 @@ class TaskView {
         axios.get('http://localhost:3003/api/todos')
             .then(res => {
                 taskList = res.data;
-                //console.log(res.data[0]._id)
                 if(typeof taskList !== 'undefined' && taskList.length > 0){
                     for(var i=0; i<taskList.length; i++){
                         if(!taskList[i].isDone){
