@@ -4,6 +4,8 @@ class TaskView {
         this.app2 = app2
     }
     todoTable(taskList){
+        let id = taskList[0]._id.toString()
+        //console.log(id)
         return `
             <table class="table table-striped">
                 <thead class="thead-dark">
@@ -15,13 +17,13 @@ class TaskView {
                     </tr>
                 </thead>
                 ${taskList.filter(taskList => !taskList.isDone).map(taskList =>
-                     `<tr class="id-${taskList.id}">
+                     `<tr class="id-${taskList._id}">
                         <td>${taskList.text}</td>
                         <td>${DateHelper.dateToText(taskList.dueDate)}</td>
                         <td>${DateHelper.dateToText(taskList.creationTime)}</td>
                         <td>
-                            <button onclick=taskController.changeStatus(${taskList.id}) class="btn btn-sm btn-dark" title="Mark task as done"><i class="fas fa-check"></i></button>
-                            <button onclick=taskController.removeItem(${taskList.id}) class="btn btn-sm btn-dark" title="Remove task"><i class="fas fa-times"></i></button>
+                            <button onclick=taskController.changeStatus('${taskList._id}') class="btn btn-sm btn-dark" title="Mark task as done"><i class="fas fa-check"></i></button>
+                            <button onclick=taskController.removeItem({id}) class="btn btn-sm btn-dark" title="Remove task"><i class="fas fa-times"></i></button>
                             <button onclick="" class="btn btn-sm btn-dark" title="Edit task"><i class="fas fa-pencil-alt"></i></button>
                         </td>
                     </tr>`
@@ -69,23 +71,25 @@ class TaskView {
     noDoneTasks(){
         return `<p>No done tasks</p>`
     }
+
     update(taskList){
         axios.get('http://localhost:3003/api/todos')
             .then(res => {
-                //console.log(res.data)
-                if(typeof res.data !== 'undefined' && res.data.length > 0){
-                    for(var i=0; i<res.data.length; i++){
-                        if(res.data[i].isDone == false){
-                            this.app.innerHTML = this.todoTable(res.data)
+                taskList = res.data;
+                //console.log(res.data[0]._id)
+                if(typeof taskList !== 'undefined' && taskList.length > 0){
+                    for(var i=0; i<taskList.length; i++){
+                        if(!taskList[i].isDone){
+                            this.app.innerHTML = this.todoTable(taskList)
                         } else {
                             this.app.innerHTML = this.noTasks()
                         }
                     }
                 } else this.app.innerHTML = this.noTasks()
-                if(typeof res.data !== 'undefined' && res.data.length > 0){
-                    for(var i=0; i<res.data.length; i++){
-                        if(res.data[i].isDone == true){
-                            this.app2.innerHTML = this.doneTable(res.data)
+                if(typeof taskList !== 'undefined' && taskList.length > 0){
+                    for(var i=0; i<taskList.length; i++){
+                        if(taskList[i].isDone){
+                            this.app2.innerHTML = this.doneTable(taskList)
                         } else {
                             this.app2.innerHTML = this.noDoneTasks()
                         }

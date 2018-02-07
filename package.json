@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/loader.js",
   "scripts": {
+    "restart": "pm2 restart all",
     "dev": "nodemon",
     "production": "pm2 start src/loader.js --name todo-list",
     "start": "npm run open",

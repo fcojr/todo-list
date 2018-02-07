@@ -3,6 +3,9 @@ class DateHelper{
 		return new Date(...dateText.split("-").map((item, indice) => item - indice % 2))
 	}
 	static dateToText(date){
-		return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+		//console.log(date)
+		var newDate = new Date(date)
+		return `${newDate.getDate()}/${newDate.getMonth() + 1}/${newDate.getFullYear()}`
 	}
 }
+//export default DateHelper;
