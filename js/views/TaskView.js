@@ -22,7 +22,7 @@ class TaskView {
                         <td>${DateHelper.dateToText(taskList.dueDate)}</td>
                         <td>${DateHelper.dateToText(taskList.creationTime)}</td>
                         <td>
-                            <button onclick=taskController.changeStatus('${taskList._id}') class="btn btn-sm btn-dark" title="Mark task as done"><i class="fas fa-check"></i></button>
+                            <button onclick="taskController.markAsDone('${taskList._id}')" class="btn btn-sm btn-dark" title="Mark task as done"><i class="fas fa-check"></i></button>
                             <button onclick=taskController.removeItem({id}) class="btn btn-sm btn-dark" title="Remove task"><i class="fas fa-times"></i></button>
                             <button onclick="" class="btn btn-sm btn-dark" title="Edit task"><i class="fas fa-pencil-alt"></i></button>
                         </td>
@@ -47,7 +47,7 @@ class TaskView {
                         <td>${DateHelper.dateToText(taskList.dueDate)}</td>
                         <td>${DateHelper.dateToText(taskList.creationTime)}</td>
                         <td>
-                            <button onclick="taskController.changeStatus(${taskList.id})" class="btn btn-sm btn-dark" title="Undo task"><i class="fas fa-undo"></i></i></button>
+                            <button onclick="taskController.backToDo('${taskList._id}')" class="btn btn-sm btn-dark" title="Undo task"><i class="fas fa-undo"></i></i></button>
                         </td>
                     </tr>`
                 ).join('')}
@@ -71,8 +71,16 @@ class TaskView {
     noDoneTasks(){
         return `<p>No done tasks</p>`
     }
-
+    initList(listaTask){
+        //console.log(listaTask)
+        axios.get('http://localhost:3003/api/todos')
+            .then(res => { 
+                res.data.forEach(task=>listaTask.addTask(task))
+                //console.log(listaTask)
+            })
+    }
     update(taskList){
+        //console.log(listaTask)
         axios.get('http://localhost:3003/api/todos')
             .then(res => {
                 taskList = res.data;

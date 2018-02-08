@@ -4,8 +4,9 @@ class TaskController{
 		this.dateInput = document.querySelector("#dueDate")
 		this.taskList = new TaskList()
 		this.taskView = new TaskView(document.querySelector("#app"), document.querySelector("#app2"))
-		//console.log(this.taskList)
+		this.taskView.initList(this.taskList)
 		this.taskView.update(this.taskList)
+		//console.log(this.taskList)
 	}
 	create(){
 		if(this.verifica(this.textInput, this.dateInput)){
@@ -17,8 +18,8 @@ class TaskController{
 			//console.log(this.taskList)
 			this.reset(this.textInput, this.dateInput)
 			axios.post('http://localhost:3003/api/todos', { ...task })
-				 .then(resp => console.log('Enviado ao banco'))
-				 setTimeout(()=>{ this.taskView.update(this.taskList) }, 3000);
+				 .then(resp => {console.log('Enviado ao banco')
+				 this.taskView.update(this.taskList)})
 			//this.taskView.update(this.taskList)
 		}
 	}
@@ -48,19 +49,24 @@ class TaskController{
 		}
 		this.taskView.update(this.taskList)
 	}
-	changeStatus(taskId){
-		axios.get('http://localhost:3003/api/todos')
-		.then(res => {
-			let taskList = res.data;
-			for(var i=0; i<taskList.length; i++){
-				if(taskList[i]._id == taskId){
-					taskList[i].isDone = !taskList[i].isDone
-					axios.post('http://localhost:3003/api/todos', { ...taskList[i] })
-						.then((resp => console.log("Alterado no banco")))
+	markAsDone(taskId){
+			for(var i=0; i<this.taskList.tasks.length; i++){
+				if(this.taskList.tasks[i]._id == taskId){
+					this.taskList.tasks[i].isDone = !this.taskList.tasks[i].isDone
+					console.log(this.taskList.tasks[i])
+					axios.put(`http://localhost:3003/api/todos/${taskId}`, { ...this.taskList.tasks[i], isDone: true })
+						.then((resp => this.taskView.update(this.taskList.tasks)))
 				}
 			}
-		})
-		// this.taskView.update(this.taskList)
-		//this.taskView.updateViewModel()
+	}
+	backToDo(taskId){
+		for(var i=0; i<this.taskList.tasks.length; i++){
+			if(this.taskList.tasks[i]._id == taskId){
+				this.taskList.tasks[i].isDone = !this.taskList.tasks[i].isDone
+				console.log(this.taskList.tasks[i])
+				axios.put(`http://localhost:3003/api/todos/${taskId}`, { ...this.taskList.tasks[i], isDone: false })
+					.then((resp => this.taskView.update(this.taskList)))
+			}
+		}
 	}
 }
