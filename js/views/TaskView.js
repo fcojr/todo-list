@@ -4,8 +4,8 @@ class TaskView {
         this.app2 = app2
     }
     todoTable(taskList){
-        let id = taskList[0]._id.toString()
-        //console.log(id)
+        //let id = taskList[0]._id.toString()
+        //console.log(taskList)
         return `
             <table class="table table-striped">
                 <thead class="thead-dark">
@@ -80,7 +80,7 @@ class TaskView {
             })
     }
     update(taskList){
-        //console.log(listaTask)
+        console.log(taskList)
         axios.get('http://localhost:3003/api/todos')
             .then(res => {
                 taskList = res.data;

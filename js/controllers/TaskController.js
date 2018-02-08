@@ -53,9 +53,9 @@ class TaskController{
 			for(var i=0; i<this.taskList.tasks.length; i++){
 				if(this.taskList.tasks[i]._id == taskId){
 					this.taskList.tasks[i].isDone = !this.taskList.tasks[i].isDone
-					console.log(this.taskList.tasks[i])
+					console.log(this.taskList.tasks)
 					axios.put(`http://localhost:3003/api/todos/${taskId}`, { ...this.taskList.tasks[i], isDone: true })
-						.then((resp => this.taskView.update(this.taskList.tasks)))
+						.then(res => this.taskView.update(this.taskList.tasks))
 				}
 			}
 	}
@@ -63,9 +63,9 @@ class TaskController{
 		for(var i=0; i<this.taskList.tasks.length; i++){
 			if(this.taskList.tasks[i]._id == taskId){
 				this.taskList.tasks[i].isDone = !this.taskList.tasks[i].isDone
-				console.log(this.taskList.tasks[i])
+				//console.log(this.taskList.tasks[i])
 				axios.put(`http://localhost:3003/api/todos/${taskId}`, { ...this.taskList.tasks[i], isDone: false })
-					.then((resp => this.taskView.update(this.taskList)))
+					.then(res => this.taskView.update(this.taskList.tasks))
 			}
 		}
 	}
