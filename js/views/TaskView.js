@@ -4,8 +4,8 @@ class TaskView {
         this.app2 = app2
     }
     todoTable(taskList){
-        //let id = taskList[0]._id.toString()
-        //console.log(taskList)
+        let tasks = taskList.filter(tasks => !tasks.isDone)
+        if(tasks.length === 0) return this.noTasks()
         return `
             <table class="table table-striped">
                 <thead class="thead-dark">
@@ -16,13 +16,13 @@ class TaskView {
                         <th>Change Status</th>
                     </tr>
                 </thead>
-                ${taskList.filter(taskList => !taskList.isDone).map(taskList =>
-                     `<tr class="id-${taskList._id}">
-                        <td>${taskList.text}</td>
-                        <td>${DateHelper.dateToText(taskList.dueDate)}</td>
-                        <td>${DateHelper.dateToText(taskList.creationTime)}</td>
+                ${tasks.map(tasks =>
+                     `<tr class="id-${tasks._id}">
+                        <td>${tasks.text}</td>
+                        <td>${DateHelper.dateToText(tasks.dueDate)}</td>
+                        <td>${DateHelper.dateToText(tasks.creationTime)}</td>
                         <td>
-                            <button onclick="taskController.markAsDone('${taskList._id}')" class="btn btn-sm btn-dark" title="Mark task as done"><i class="fas fa-check"></i></button>
+                            <button onclick="taskController.markAsDone('${tasks._id}')" class="btn btn-sm btn-dark" title="Mark task as done"><i class="fas fa-check"></i></button>
                             <button onclick=taskController.removeItem({id}) class="btn btn-sm btn-dark" title="Remove task"><i class="fas fa-times"></i></button>
                             <button onclick="" class="btn btn-sm btn-dark" title="Edit task"><i class="fas fa-pencil-alt"></i></button>
                         </td>
@@ -31,6 +31,8 @@ class TaskView {
             </table> `
     }
     doneTable(taskList){
+        let doneTasks = taskList.filter(taskList => taskList.isDone)
+        if(doneTasks.length === 0) return this.noDoneTasks()
         return `
             <table class="table table-striped">
                 <thead class="thead-dark">
@@ -41,13 +43,13 @@ class TaskView {
                         <th class="bg-success">Change Status</th>
                     </tr>
                 </thead>
-                ${taskList.filter(taskList => taskList.isDone).map(taskList =>
+                ${doneTasks.map(doneTasks =>
                      `<tr>
-                        <td>${taskList.text}</td>
-                        <td>${DateHelper.dateToText(taskList.dueDate)}</td>
-                        <td>${DateHelper.dateToText(taskList.creationTime)}</td>
+                        <td>${doneTasks.text}</td>
+                        <td>${DateHelper.dateToText(doneTasks.dueDate)}</td>
+                        <td>${DateHelper.dateToText(doneTasks.creationTime)}</td>
                         <td>
-                            <button onclick="taskController.backToDo('${taskList._id}')" class="btn btn-sm btn-dark" title="Undo task"><i class="fas fa-undo"></i></i></button>
+                            <button onclick="taskController.backToDo('${doneTasks._id}')" class="btn btn-sm btn-dark" title="Undo task"><i class="fas fa-undo"></i></i></button>
                         </td>
                     </tr>`
                 ).join('')}
@@ -80,28 +82,12 @@ class TaskView {
             })
     }
     update(taskList){
-        console.log(taskList)
+        //console.log(taskList)
         axios.get('http://localhost:3003/api/todos')
             .then(res => {
                 taskList = res.data;
-                if(typeof taskList !== 'undefined' && taskList.length > 0){
-                    for(var i=0; i<taskList.length; i++){
-                        if(!taskList[i].isDone){
-                            this.app.innerHTML = this.todoTable(taskList)
-                        } else {
-                            this.app.innerHTML = this.noTasks()
-                        }
-                    }
-                } else this.app.innerHTML = this.noTasks()
-                if(typeof taskList !== 'undefined' && taskList.length > 0){
-                    for(var i=0; i<taskList.length; i++){
-                        if(taskList[i].isDone){
-                            this.app2.innerHTML = this.doneTable(taskList)
-                        } else {
-                            this.app2.innerHTML = this.noDoneTasks()
-                        }
-                    }
-                } else this.app2.innerHTML = this.noDoneTasks()
+                this.app.innerHTML = this.todoTable(taskList)
+                this.app2.innerHTML = this.doneTable(taskList)
             })
     }
     fadeOut(taskId){
