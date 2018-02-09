@@ -23,7 +23,7 @@ class TaskView {
                         <td>${DateHelper.dateToText(tasks.creationTime)}</td>
                         <td>
                             <button onclick="taskController.markAsDone('${tasks._id}')" class="btn btn-sm btn-dark" title="Mark task as done"><i class="fas fa-check"></i></button>
-                            <button onclick=taskController.removeItem({id}) class="btn btn-sm btn-dark" title="Remove task"><i class="fas fa-times"></i></button>
+                            <button onclick="taskController.removeItem('${tasks._id}')" class="btn btn-sm btn-dark" title="Remove task"><i class="fas fa-times"></i></button>
                             <button onclick="" class="btn btn-sm btn-dark" title="Edit task"><i class="fas fa-pencil-alt"></i></button>
                         </td>
                     </tr>`
@@ -74,15 +74,12 @@ class TaskView {
         return `<p>No done tasks</p>`
     }
     initList(listaTask){
-        //console.log(listaTask)
         axios.get('http://localhost:3003/api/todos')
             .then(res => { 
                 res.data.forEach(task=>listaTask.addTask(task))
-                //console.log(listaTask)
             })
     }
     update(taskList){
-        //console.log(taskList)
         axios.get('http://localhost:3003/api/todos')
             .then(res => {
                 taskList = res.data;
