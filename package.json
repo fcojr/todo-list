@@ -33,6 +33,7 @@
     "pm2": "^2.1.5"
   },
   "dependencies": {
+    "alertifyjs": "^1.11.0",
     "cors": "^2.8.4"
   }
 }

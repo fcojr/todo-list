@@ -17,13 +17,13 @@ class TaskView {
                     </tr>
                 </thead>
                 ${tasks.map(tasks =>
-                     `<tr class="id-${tasks._id}">
+                     `<tr class="id-${tasks._id.$oid}">
                         <td>${tasks.text}</td>
                         <td>${DateHelper.dateToText(tasks.dueDate)}</td>
                         <td>${DateHelper.dateToText(tasks.creationTime)}</td>
                         <td>
-                            <button onclick="taskController.markAsDone('${tasks._id}')" class="btn btn-sm btn-dark" title="Mark task as done"><i class="fas fa-check"></i></button>
-                            <button onclick="taskController.removeItem('${tasks._id}')" class="btn btn-sm btn-dark" title="Remove task"><i class="fas fa-times"></i></button>
+                            <button onclick="taskController.markAsDone('${tasks._id.$oid}')" class="btn btn-sm btn-dark" title="Mark task as done"><i class="fas fa-check"></i></button>
+                            <button onclick="taskController.removeItem('${tasks._id.$oid}')" class="btn btn-sm btn-dark" title="Remove task"><i class="fas fa-times"></i></button>
                             <button onclick="" class="btn btn-sm btn-dark" title="Edit task"><i class="fas fa-pencil-alt"></i></button>
                         </td>
                     </tr>`
@@ -49,7 +49,7 @@ class TaskView {
                         <td>${DateHelper.dateToText(doneTasks.dueDate)}</td>
                         <td>${DateHelper.dateToText(doneTasks.creationTime)}</td>
                         <td>
-                            <button onclick="taskController.backToDo('${doneTasks._id}')" class="btn btn-sm btn-dark" title="Undo task"><i class="fas fa-undo"></i></i></button>
+                            <button onclick="taskController.backToDo('${doneTasks._id.$oid}')" class="btn btn-sm btn-dark" title="Undo task"><i class="fas fa-undo"></i></i></button>
                         </td>
                     </tr>`
                 ).join('')}
@@ -74,13 +74,15 @@ class TaskView {
         return `<p>No done tasks</p>`
     }
     initList(listaTask){
-        axios.get('http://localhost:3003/api/todos')
+        axios.get(URL)
             .then(res => { 
+                //console.log(res.data)
                 res.data.forEach(task=>listaTask.addTask(task))
             })
+            console.log(listaTask)
     }
     update(taskList){
-        axios.get('http://localhost:3003/api/todos')
+        axios.get(URL)
             .then(res => {
                 taskList = res.data;
                 this.app.innerHTML = this.todoTable(taskList)
