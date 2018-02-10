@@ -1,4 +1,4 @@
-const port = 3003
+const port = 3001
 const express = require('express')
 const server = express()
 const cors = require('cors')
@@ -9,4 +9,20 @@ server.use(cors())
 server.listen(port, () =>{
     console.log(`servidor rodando na porta ${port}`)
 })
-module.exports = server
+const mongoose = require('mongoose')
+var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
+                replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };       
+ 
+var mongodbUri = 'mongodb://fcojr:55275654@ds225608.mlab.com:25608/todo-list-db';
+ 
+mongoose.connect(mongodbUri, options);
+var conn = mongoose.connection;             
+ 
+conn.on('error', console.error.bind(console, 'connection error:'));  
+ 
+conn.once('open', function() {
+  console.log(" conectado ")                         
+});
+var ObjectId = require('mongodb').ObjectID;
+var id = new ObjectId()
+//module.exports = server
