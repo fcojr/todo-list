@@ -20,7 +20,7 @@
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
 </head>
 	<!--body onload=taskController.create()-->
@@ -57,7 +57,7 @@
 					<h1>Franc's Todo List</h1>
 					<p>Add your tasks below to start!</p>
 				</section>
-				<form action="javascript:0" class="form-inline">
+				<form action="javascript:0" class="form-inline entry">
 					<div class="form-group mb-2">
 						<label for="text">Task Name</label>
 						<input class="form-control" id="text" name="text" type="text">
@@ -84,7 +84,7 @@
 		let taskController = new TaskController()
 	</script>
 	<script>
-		$(window).load(function() {
+		$(window).on('load', function() {
 			// Animate loader off screen
 			setTimeout(() => {
 				$("#loading").fadeOut("slow");

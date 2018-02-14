@@ -77,4 +77,15 @@ class TaskController{
 			}
 		}
 	}
+	editTask(taskId){
+		var newText = document.querySelector(`#id-${taskId}`)
+		console.log(newText)
+		newText.setAttribute("contenteditable", "true")
+		newText.focus()
+		for(var i=0; i<this.taskList.tasks.length; i++){
+			if(this.taskList.tasks[i]._id.$oid == taskId){
+				this.taskList.tasks[i].text = newText.value
+			}
+		}
+	}
 }

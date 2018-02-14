@@ -7,6 +7,7 @@
 .table{
     th, td{
         width: 20%;
+        position: relative;
         &:first-child{
             width: 45%;
         }
@@ -19,6 +20,18 @@
         &:not(:first-child){
             text-align: center;
         }
+        input{
+            display: none;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            vertical-align: middle;
+            border: 0;
+            &.active{
+                display: initial;
+                background: inherit;
+            }
+        }
     }
 }
 input, label{
@@ -29,7 +42,7 @@ input, label{
         box-shadow: 0 0 0 0.2rem rgba(255,0,0,.25);
     }
 }
-form{
+.entry{
     margin: 50px 0;
     justify-content: center;
     .mb-2{

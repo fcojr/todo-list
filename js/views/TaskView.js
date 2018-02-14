@@ -18,13 +18,18 @@ class TaskView {
                 </thead>
                 ${tasks.map(tasks =>
                      `<tr class="id-${tasks._id.$oid}">
-                        <td>${tasks.text}</td>
+                        <td id="id-${tasks._id.$oid}">
+                            ${tasks.text}
+                            <!--form>
+                                <input onChange="console.log("fui alterado")" id="id-${tasks._id.$oid}" type="text" value="${tasks.text}">
+                            </form-->
+                        </td>
                         <td>${DateHelper.dateToText(tasks.dueDate)}</td>
                         <td>${DateHelper.dateToText(tasks.creationTime)}</td>
                         <td>
                             <button onclick="taskController.markAsDone('${tasks._id.$oid}')" class="btn btn-sm btn-dark" title="Mark task as done"><i class="fas fa-check"></i></button>
                             <button onclick="taskController.removeItem('${tasks._id.$oid}')" class="btn btn-sm btn-dark" title="Remove task"><i class="fas fa-times"></i></button>
-                            <button onclick="" class="btn btn-sm btn-dark" title="Edit task"><i class="fas fa-pencil-alt"></i></button>
+                            <button onclick="taskController.editTask('${tasks._id.$oid}')" class="btn btn-sm btn-dark" title="Edit task"><i class="fas fa-pencil-alt"></i></button>
                         </td>
                     </tr>`
                 ).join('')}
@@ -79,7 +84,6 @@ class TaskView {
                 //console.log(res.data)
                 res.data.forEach(task=>listaTask.addTask(task))
             })
-            console.log(listaTask)
     }
     update(taskList){
         axios.get(URL)
@@ -88,17 +92,5 @@ class TaskView {
                 this.app.innerHTML = this.todoTable(taskList)
                 this.app2.innerHTML = this.doneTable(taskList)
             })
-    }
-    fadeOut(taskId){
-		document.querySelector(".id-"+taskId).classList.add("fadeOut")
-		setTimeout(()=> {
-			this.update(this.taskList, this.doneTasks)
-		}, 500)
-    }
-    fadeIn(taskId){
-        document.querySelector(".id-"+taskId).classList.add("fadeIn")
-        setTimeout(()=> {
-            this.update(this.taskList, this.doneTasks)
-        }, 500)
     }
 }
