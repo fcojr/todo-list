@@ -79,13 +79,31 @@ class TaskController{
 	}
 	editTask(taskId){
 		var newText = document.querySelector(`#id-${taskId}`)
-		console.log(newText)
 		newText.setAttribute("contenteditable", "true")
-		newText.focus()
-		for(var i=0; i<this.taskList.tasks.length; i++){
-			if(this.taskList.tasks[i]._id.$oid == taskId){
-				this.taskList.tasks[i].text = newText.value
+		const range = document.createRange();
+		const sel = window.getSelection();
+		range.selectNodeContents(newText);
+		range.collapse(false);
+		sel.removeAllRanges();
+		sel.addRange(range);
+		newText.focus();
+		newText.addEventListener("keypress", (e)=>{ 
+			if (e.which === 13) {
+				e.preventDefault();
+				newText.blur()
+			}})
+		newText.addEventListener("focusout", ()=>{ 
+			newText.removeAttribute("contenteditable") 
+			for(var i=0; i<this.taskList.tasks.length; i++){
+				if(this.taskList.tasks[i]._id.$oid == taskId && this.taskList.tasks[i].text !== newText.innerHTML){
+					this.taskList.tasks[i].text = newText.innerHTML
+					axios.put(`https://api.mlab.com/api/1/databases/todo-list-db/collections/lista/${taskId}?apiKey=Rden4Y9d9SKz1Lq8bEc_EKN3N2OBo7PD`, { ...this.taskList.tasks[i], text: newText.innerHTML })
+						.then(res => {
+							this.taskView.update(this.taskList.tasks)
+							alertify.notify('Task changed', 'success', 5);
+						})
+				}
 			}
-		}
+		})
 	}
 }

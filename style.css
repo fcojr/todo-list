@@ -9,6 +9,7 @@
 
 .table th, .table td {
   width: 20%;
+  outline: 0;
   position: relative; }
   .table th:first-child, .table td:first-child {
     width: 45%; }

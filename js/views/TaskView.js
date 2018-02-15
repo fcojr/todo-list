@@ -20,9 +20,6 @@ class TaskView {
                      `<tr class="id-${tasks._id.$oid}">
                         <td id="id-${tasks._id.$oid}">
                             ${tasks.text}
-                            <!--form>
-                                <input onChange="console.log("fui alterado")" id="id-${tasks._id.$oid}" type="text" value="${tasks.text}">
-                            </form-->
                         </td>
                         <td>${DateHelper.dateToText(tasks.dueDate)}</td>
                         <td>${DateHelper.dateToText(tasks.creationTime)}</td>
