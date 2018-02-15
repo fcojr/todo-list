@@ -78,8 +78,10 @@ class TaskController{
 		}
 	}
 	editTask(taskId){
-		var newText = document.querySelector(`#id-${taskId}`)
+		let newText = document.querySelector(`#id-${taskId}`)
 		newText.setAttribute("contenteditable", "true")
+		const newDate = document.querySelector(`#date-id-${taskId}`)
+		newDate.setAttribute("contenteditable", "true")
 		const range = document.createRange();
 		const sel = window.getSelection();
 		range.selectNodeContents(newText);
@@ -91,18 +93,18 @@ class TaskController{
 			if (e.which === 13) {
 				e.preventDefault();
 				newText.blur()
-			}})
+			}
+		})
 		newText.addEventListener("focusout", ()=>{ 
 			newText.removeAttribute("contenteditable") 
-			for(var i=0; i<this.taskList.tasks.length; i++){
-				if(this.taskList.tasks[i]._id.$oid == taskId && this.taskList.tasks[i].text !== newText.innerHTML){
-					this.taskList.tasks[i].text = newText.innerHTML
-					axios.put(`https://api.mlab.com/api/1/databases/todo-list-db/collections/lista/${taskId}?apiKey=Rden4Y9d9SKz1Lq8bEc_EKN3N2OBo7PD`, { ...this.taskList.tasks[i], text: newText.innerHTML })
-						.then(res => {
-							this.taskView.update(this.taskList.tasks)
-							alertify.notify('Task changed', 'success', 5);
-						})
-				}
+			let task = this.taskList.tasks.find(item => item._id.$oid === taskId)
+			if(task.text != newText.innerText){ 
+			task.text = newText.innerText
+				axios.put(`https://api.mlab.com/api/1/databases/todo-list-db/collections/lista/${taskId}?apiKey=Rden4Y9d9SKz1Lq8bEc_EKN3N2OBo7PD`, { ...task, text: newText.innerText })
+					.then(res => {
+						this.taskView.update(this.taskList.tasks)
+						alertify.notify('Task changed', 'success', 5);
+					})
 			}
 		})
 	}

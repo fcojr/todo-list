@@ -21,7 +21,7 @@ class TaskView {
                         <td id="id-${tasks._id.$oid}">
                             ${tasks.text}
                         </td>
-                        <td>${DateHelper.dateToText(tasks.dueDate)}</td>
+                        <td id="date-id-${tasks.id.$oid}">${DateHelper.dateToText(tasks.dueDate)}</td>
                         <td>${DateHelper.dateToText(tasks.creationTime)}</td>
                         <td>
                             <button onclick="taskController.markAsDone('${tasks._id.$oid}')" class="btn btn-sm btn-dark" title="Mark task as done"><i class="fas fa-check"></i></button>
