@@ -24,13 +24,15 @@
         input{
             display: none;
             position: absolute;
-            left: 10px;
+            left: 48px;
             top: 10px;
             vertical-align: middle;
             border: 0;
             &.active{
                 display: initial;
-                background: inherit;
+                //background: inherit;
+                width: 80%;
+                text-align: center;
             }
         }
     }

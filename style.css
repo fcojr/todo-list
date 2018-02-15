@@ -22,13 +22,14 @@
   .table th input, .table td input {
     display: none;
     position: absolute;
-    left: 10px;
+    left: 48px;
     top: 10px;
     vertical-align: middle;
     border: 0; }
     .table th input.active, .table td input.active {
       display: initial;
-      background: inherit; }
+      width: 80%;
+      text-align: center; }
 
 input, label {
   margin-right: 25px;

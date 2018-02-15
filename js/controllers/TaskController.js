@@ -78,10 +78,10 @@ class TaskController{
 		}
 	}
 	editTask(taskId){
-		let newText = document.querySelector(`#id-${taskId}`)
+		const newText = document.querySelector(`#id-${taskId}`)
 		newText.setAttribute("contenteditable", "true")
 		const newDate = document.querySelector(`#date-id-${taskId}`)
-		newDate.setAttribute("contenteditable", "true")
+		newDate.classList.add("active")
 		const range = document.createRange();
 		const sel = window.getSelection();
 		range.selectNodeContents(newText);
@@ -89,17 +89,37 @@ class TaskController{
 		sel.removeAllRanges();
 		sel.addRange(range);
 		newText.focus();
-		newText.addEventListener("keypress", (e)=>{ 
+		newText.addEventListener("keypress", e=>{ 
 			if (e.which === 13) {
 				e.preventDefault();
 				newText.blur()
+				newDate.focus()
+			}
+		})
+		newDate.addEventListener("keypress", e=> {
+			if (e.which === 13) {
+				e.preventDefault();
+				newDate.blur()
+			}
+		})
+		newDate.addEventListener("focusout", ()=>{ 
+			let task = this.taskList.tasks.find(item => item._id.$oid === taskId)
+			console.log(newDate.value)
+			const date = moment(newDate.value)
+			if(task.dueDate != date){ 
+				task.dueDate = date
+				axios.put(`https://api.mlab.com/api/1/databases/todo-list-db/collections/lista/${taskId}?apiKey=Rden4Y9d9SKz1Lq8bEc_EKN3N2OBo7PD`, { ...task, dueDate: date })
+					.then(res => {
+						this.taskView.update(this.taskList.tasks)
+						alertify.notify('Task changed', 'success', 5);
+					})
 			}
 		})
 		newText.addEventListener("focusout", ()=>{ 
 			newText.removeAttribute("contenteditable") 
 			let task = this.taskList.tasks.find(item => item._id.$oid === taskId)
 			if(task.text != newText.innerText){ 
-			task.text = newText.innerText
+				task.text = newText.innerText
 				axios.put(`https://api.mlab.com/api/1/databases/todo-list-db/collections/lista/${taskId}?apiKey=Rden4Y9d9SKz1Lq8bEc_EKN3N2OBo7PD`, { ...task, text: newText.innerText })
 					.then(res => {
 						this.taskView.update(this.taskList.tasks)

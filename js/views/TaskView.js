@@ -21,8 +21,11 @@ class TaskView {
                         <td id="id-${tasks._id.$oid}">
                             ${tasks.text}
                         </td>
-                        <td id="date-id-${tasks.id.$oid}">${DateHelper.dateToText(tasks.dueDate)}</td>
-                        <td>${DateHelper.dateToText(tasks.creationTime)}</td>
+                        <td>
+                            ${moment(tasks.dueDate).format("DD/MM/YYYY")}
+                            <input id="date-id-${tasks._id.$oid}" class="form-control" value="${moment(tasks.dueDate).format("YYYY-MM-DD")}" id="dueDate" name="dueDate" type="date">
+                        </td>
+                        <td>${moment(tasks.creationTime).format("DD/MM/YYYY")}</td>
                         <td>
                             <button onclick="taskController.markAsDone('${tasks._id.$oid}')" class="btn btn-sm btn-dark" title="Mark task as done"><i class="fas fa-check"></i></button>
                             <button onclick="taskController.removeItem('${tasks._id.$oid}')" class="btn btn-sm btn-dark" title="Remove task"><i class="fas fa-times"></i></button>
