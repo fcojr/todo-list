@@ -1,4 +1,4 @@
-# Project Title
+# Franc's Todo List
 
 This is my first ES6 & NodeJS app. A to-do list.
 
@@ -6,9 +6,9 @@ This is my first ES6 & NodeJS app. A to-do list.
 
 Just clone the repo, ```npm install```, and you're good to go.
 
-Go to config folder, ```node server``` to start the server
-
 ```npm run open``` will start the app, which will be running on 1234 port
+
+Go to ```config folder```, ```node server``` to start the server
 
 ## Built With
 
