@@ -6,8 +6,7 @@
   "scripts": {
     "restart": "pm2 restart all",
     "dev": "nodemon",
-    "start": "node config/server",
-    "open": "concurrently \"http-server -a localhost -p 1234\" \"open http://localhost:1234/build\""
+    "start": "node config/server"
   },
   "repository": {
     "type": "git",
