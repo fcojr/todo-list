@@ -10,13 +10,29 @@
 .table th, .table td {
   width: 20%;
   outline: 0;
-  position: relative; }
+  position: relative;
+  vertical-align: middle !important; }
+  .table th.text span, .table td.text span {
+    margin-right: 10px;
+    outline: 0; }
+  .table th.text button, .table td.text button {
+    display: none;
+    position: absolute; }
+  .table th.text:hover button, .table td.text:hover button {
+    display: inline-block; }
+  .table th.editing, .table td.editing {
+    box-shadow: inset 0 0 10px #007bff; }
+    .table th.editing button, .table td.editing button {
+      right: 15px;
+      display: inline-block; }
   .table th:first-child, .table td:first-child {
     width: 45%; }
   .table th:last-child, .table td:last-child {
     width: 15%; }
   .table th.bg-success, .table td.bg-success {
     border-color: #19a539; }
+  .table th.bg-danger, .table td.bg-danger {
+    border-color: #b53118; }
   .table th:not(:first-child), .table td:not(:first-child) {
     text-align: center; }
   .table th input, .table td input {
@@ -48,18 +64,6 @@ input, label {
   text-align: center;
   margin: 25px 0; }
 
-.fadeOut {
-  opacity: 0;
-  transition: 1s;
-  background: #f00 !important; }
-
-.fadeIn {
-  animation: fadein .2s; }
-@keyframes fadein {
-  from {
-    opacity: 0; }
-  to {
-    opacity: 1; } }
 #loading {
   position: fixed;
   left: 0px;

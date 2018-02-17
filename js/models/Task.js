@@ -4,6 +4,6 @@ class Task {
 		this.dueDate = dueDate
 		this.creationTime = new Date()
 		this.isDone = false
-		//this._id = id
+		this.isDeleted = false
 	}
 }

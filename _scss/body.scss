@@ -9,6 +9,29 @@
         width: 20%;
         outline: 0;
         position: relative;
+        vertical-align: middle!important;
+        &.text{
+            span{
+                margin-right: 10px;
+                outline: 0;
+            }
+            button{
+                display: none;
+                position: absolute;
+            }
+            &:hover{
+                button{
+                    display: inline-block;
+                }
+            }
+        }
+        &.editing{
+            box-shadow: inset 0 0 10px #007bff;
+            button{
+                right: 15px;
+                display: inline-block;
+            }
+        }
         &:first-child{
             width: 45%;
         }
@@ -17,6 +40,9 @@
         }
         &.bg-success{
             border-color: #19a539;
+        }
+        &.bg-danger{
+            border-color: #b53118
         }
         &:not(:first-child){
             text-align: center;
@@ -55,20 +81,6 @@ input, label{
 .title{
     text-align: center;
     margin: 25px 0;
-}
-.fadeOut{
-    opacity: 0;
-    transition: 1s;
-    background: #f00!important;
-    .td{
-    }
-}
-.fadeIn{
-    animation: fadein .2s;
-    @keyframes fadein {
-        from { opacity: 0; }
-        to   { opacity: 1; }
-    }
 }
 #loading{
     position: fixed;

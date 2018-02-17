@@ -6,7 +6,6 @@
   "scripts": {
     "restart": "pm2 restart all",
     "dev": "nodemon",
-    "production": "pm2 start src/loader.js --name todo-list",
     "start": "npm run open",
     "open": "concurrently \"http-server -a localhost -p 1234\" \"open http://localhost:1234/build\""
   },

@@ -5,7 +5,7 @@ class TaskController{
 		this.textInput = document.querySelector("#text")
 		this.dateInput = document.querySelector("#dueDate")
 		this.taskList = new TaskList()
-		this.taskView = new TaskView(document.querySelector("#app"), document.querySelector("#app2"))
+		this.taskView = new TaskView(document.querySelector("#todo-table"), document.querySelector("#done-table"), document.querySelector("#postpone-table"))
 		this.taskView.initList(this.taskList)
 		this.taskView.update(this.taskList)
 	}
@@ -41,27 +41,46 @@ class TaskController{
 		textInput.value = ""
 		dateInput.value = ""
 	}
-	removeItem(taskId){
+	postponeItem(taskId){
 		for(var i=0; i<this.taskList.tasks.length; i++){
 			if(this.taskList.tasks[i]._id.$oid == taskId){
-				this.taskList.tasks.splice(i, 1)
-				axios.delete(`https://api.mlab.com/api/1/databases/todo-list-db/collections/lista/${taskId}?apiKey=Rden4Y9d9SKz1Lq8bEc_EKN3N2OBo7PD`)
+				this.taskList.tasks[i].isDeleted = true
+				axios.put(`https://api.mlab.com/api/1/databases/todo-list-db/collections/lista/${taskId}?apiKey=Rden4Y9d9SKz1Lq8bEc_EKN3N2OBo7PD`, { ...this.taskList.tasks[i], isDeleted: true})
 					.then(res=>this.taskView.update(this.taskList.tasks))
-					alertify.notify('Task removed', 'error', 5);
+					alertify.notify('Task postponed', 'error', 5);
 			}
 		}
+	}
+	retrieveTask(taskId){
+		let task = this.taskList.tasks.find(item => item._id.$oid === taskId)
+		task.isDeleted = false
+		axios.put(`https://api.mlab.com/api/1/databases/todo-list-db/collections/lista/${taskId}?apiKey=Rden4Y9d9SKz1Lq8bEc_EKN3N2OBo7PD`, { ...task, isDeleted: false })
+			.then(res => {
+				this.taskView.update(this.taskList.tasks)
+				alertify.notify('Task retrieved', 'success', 5);
+			})
+		
+	}
+	removeTask(taskId){
+		alertify.confirm('Are you sure? This cannot be undone', ()=>{
+			let task = this.taskList.tasks.find(item => item._id.$oid === taskId)
+			this.taskList.tasks.splice(1, task)
+			axios.delete(`https://api.mlab.com/api/1/databases/todo-list-db/collections/lista/${taskId}?apiKey=Rden4Y9d9SKz1Lq8bEc_EKN3N2OBo7PD`)
+			.then(res => {
+				this.taskView.update(this.taskList.tasks)
+				alertify.notify('Task permanently removed', 'error', 5);
+			})
+		}), () => true
 	}
 	markAsDone(taskId){
 			for(var i=0; i<this.taskList.tasks.length; i++){
 				if(this.taskList.tasks[i]._id.$oid == taskId){
 					this.taskList.tasks[i].isDone = true
-					console.log(taskId)
 					axios.put(`https://api.mlab.com/api/1/databases/todo-list-db/collections/lista/${taskId}?apiKey=Rden4Y9d9SKz1Lq8bEc_EKN3N2OBo7PD`, { ...this.taskList.tasks[i], isDone: true })
 						.then(res => {
 							this.taskView.update(this.taskList.tasks)
 							alertify.notify('Marked as done', 'success', 5);
 						})
-						
 				}
 			}
 	}
@@ -77,11 +96,10 @@ class TaskController{
 			}
 		}
 	}
-	editTask(taskId){
+	editText(taskId){
 		const newText = document.querySelector(`#id-${taskId}`)
+		newText.classList.add("editing")
 		newText.setAttribute("contenteditable", "true")
-		const newDate = document.querySelector(`#date-id-${taskId}`)
-		newDate.classList.add("active")
 		const range = document.createRange();
 		const sel = window.getSelection();
 		range.selectNodeContents(newText);
@@ -93,30 +111,11 @@ class TaskController{
 			if (e.which === 13) {
 				e.preventDefault();
 				newText.blur()
-				newDate.focus()
-			}
-		})
-		newDate.addEventListener("keypress", e=> {
-			if (e.which === 13) {
-				e.preventDefault();
-				newDate.blur()
-			}
-		})
-		newDate.addEventListener("focusout", ()=>{ 
-			let task = this.taskList.tasks.find(item => item._id.$oid === taskId)
-			console.log(newDate.value)
-			const date = moment(newDate.value)
-			if(task.dueDate != date){ 
-				task.dueDate = date
-				axios.put(`https://api.mlab.com/api/1/databases/todo-list-db/collections/lista/${taskId}?apiKey=Rden4Y9d9SKz1Lq8bEc_EKN3N2OBo7PD`, { ...task, dueDate: date })
-					.then(res => {
-						this.taskView.update(this.taskList.tasks)
-						alertify.notify('Task changed', 'success', 5);
-					})
 			}
 		})
 		newText.addEventListener("focusout", ()=>{ 
-			newText.removeAttribute("contenteditable") 
+			newText.removeAttribute("contenteditable")
+			newText.classList.remove("editing")
 			let task = this.taskList.tasks.find(item => item._id.$oid === taskId)
 			if(task.text != newText.innerText){ 
 				task.text = newText.innerText
