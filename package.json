@@ -20,6 +20,10 @@
   },
   "homepage": "https://github.com/fcojr/todo-list#readme",
   "devDependencies": {
+  },
+  "dependencies": {
+    "alertifyjs": "^1.11.0",
+    "cors": "^2.8.4",
     "axios": "^0.15.3",
     "body-parser": "^1.18.2",
     "concurrently": "^3.5.1",
@@ -29,9 +33,5 @@
     "node-restful": "^0.2.5",
     "nodemon": "^1.11.0",
     "pm2": "^2.1.5"
-  },
-  "dependencies": {
-    "alertifyjs": "^1.11.0",
-    "cors": "^2.8.4"
   }
 }
