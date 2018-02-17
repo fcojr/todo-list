@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 server.use(bodyParser.urlencoded({extended : true}));
 server.use(bodyParser.json())
 server.use(cors())
-server.listen(port, () =>{
+server.listen(process.env.PORT || port, () =>{
     console.log(`servidor rodando na porta ${port}`)
 })
 const mongoose = require('mongoose')
