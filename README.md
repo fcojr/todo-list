@@ -21,4 +21,4 @@ Go to ```config``` folder, ```node server``` to start the server
 
 * **Francisco Junior** (https://github.com/fcojr)
 
-See also the list of [contributors](https://github.com/todo-list/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/fcojr/todo-list/graphs/contributors) who participated in this project.
