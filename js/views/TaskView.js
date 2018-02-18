@@ -52,8 +52,8 @@ class TaskView {
                 ${doneTasks.map(doneTasks =>
                      `<tr>
                         <td>${doneTasks.text}</td>
-                        <td>${moment(doneTasks.dueDate).format("DD-MM-YYYY")}</td>
-                        <td>${moment(doneTasks.creationTime).format("DD-MM-YYYY")}</td>
+                        <td>${moment(doneTasks.dueDate).format("DD/MM/YYYY")}</td>
+                        <td>${moment(doneTasks.creationTime).format("DD/MM/YYYY")}</td>
                         <td>
                             <button onclick="taskController.backToDo('${doneTasks._id.$oid}')" class="btn btn-sm btn-dark" title="Undo task"><i class="fas fa-undo"></i></i></button>
                         </td>
@@ -78,8 +78,8 @@ class TaskView {
                 ${postponeTasks.map(postponeTasks =>
                     `<tr>
                         <td>${postponeTasks.text}</td>
-                        <td>${moment(postponeTasks.dueDate).format("DD-MM-YYYY")}</td>
-                        <td>${moment(postponeTasks.creationTime).format("DD-MM-YYYY")}</td>
+                        <td>${moment(postponeTasks.dueDate).format("DD/MM/YYYY")}</td>
+                        <td>${moment(postponeTasks.creationTime).format("DD/MM/YYYY")}</td>
                         <td>
                             <button onclick="taskController.retrieveTask('${postponeTasks._id.$oid}')" class="btn btn-sm btn-dark" title="Undo task"><i class="fas fa-undo"></i></i></button>
                             <button onclick="taskController.removeTask('${postponeTasks._id.$oid}')" class="btn btn-sm btn-dark" title="Remove permanently"><i class="fas fa-times"></i></i></button>
