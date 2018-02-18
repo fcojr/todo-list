@@ -82,11 +82,16 @@
 					} else {
 						$(".show-postpone").text("Show posponed tasks");
 					}
+					var y = $("footer").offset().top + 1;
+					$("html, body").animate({ scrollTop: y }, 500);
 				})
 				</script>
 				<div style="display:none" id="postpone-table"></div>
 			</div>
 		</main>
+		<footer>
+			<a href="https://github.com/fcojr/todo-list"><strong>Franc's To-do List</strong></a> is hosted with ❤️ by <strong><a href="https://github.com">GitHub</a></strong>
+		</footer>
 	</body>
 	<script src="js/models/Task.js"></script>
 	<script src="js/controllers/TaskController.js"></script>

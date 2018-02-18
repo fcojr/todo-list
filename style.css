@@ -1,11 +1,14 @@
 .navbar-dark {
   background: #212529 !important; }
 
-#app, #app2 {
+#todo-table, #done-table, #postpone-table {
   border-radius: 5px;
   overflow: hidden;
   min-height: 122px;
   margin-bottom: 25px; }
+
+body {
+  overflow-y: scroll; }
 
 .table th, .table td {
   width: 20%;
@@ -72,3 +75,18 @@ input, label {
   height: 100%;
   z-index: 9999;
   background: url(img/loading.gif) center no-repeat #fff; }
+
+footer {
+  position: fixed;
+  bottom: 0;
+  background: #f7f7f7;
+  text-align: center;
+  width: 100%;
+  color: #586069;
+  font-size: 14px;
+  border-top: 1px solid #ddd;
+  padding: 10px 0; }
+
+footer a {
+  text-decoration: none;
+  color: #586069; }
