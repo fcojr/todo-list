@@ -6,9 +6,9 @@ This is my first ES6 & NodeJS app. A to-do list.
 
 Just clone the repo, ```npm install```, and you're good to go
 
-```node server``` to start the server
+```npm run start``` to start the server
 
-```npm run start``` will start the app, which will be running on 1234 port
+```npm run open``` will start the app, which will be running on 1234 port
 
 ## Built With
 

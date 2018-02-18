@@ -8,7 +8,8 @@
   margin-bottom: 25px; }
 
 body {
-  overflow-y: scroll; }
+  overflow-y: scroll;
+  margin: 0 0 20px; }
 
 .table th, .table td {
   width: 20%;
@@ -76,8 +77,16 @@ input, label {
   z-index: 9999;
   background: url(img/loading.gif) center no-repeat #fff; }
 
+.show-postpone {
+  margin-bottom: 70px;
+  display: inline-block; }
+  .show-postpone.active {
+    margin: 0; }
+
 footer {
   position: fixed;
+  right: 0;
+  left: 0;
   bottom: 0;
   background: #f7f7f7;
   text-align: center;
